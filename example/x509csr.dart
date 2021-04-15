@@ -6,24 +6,28 @@
  */
 import 'package:x509csr/x509csr.dart';
 
-import "package:pointycastle/export.dart";
+import 'package:pointycastle/export.dart';
 import 'package:asn1lib/asn1lib.dart';
 
-main(List<String> arguments) {
-  AsymmetricKeyPair keyPair = rsaGenerateKeyPair();
+void main(List<String> arguments) {
+  final keyPair = rsaGenerateKeyPair();
 
   ASN1ObjectIdentifier.registerFrequentNames();
-  Map<String, String> dn = {
-    "CN": "www.davidjanes.com",
-    "O": "Consensas",
-    "L": "Toronto",
-    "ST": "Ontario",
-    "C": "CA",
+  final dn = {
+    'CN': 'www.davidjanes.com',
+    'O': 'Consensas',
+    'L': 'Toronto',
+    'ST': 'Ontario',
+    'C': 'CA',
   };
 
-  ASN1Object encodedCSR = makeRSACSR(dn, keyPair.privateKey, keyPair.publicKey);
+  final encodedCSR = makeRSACSR(
+    dn,
+    keyPair.privateKey as RSAPrivateKey,
+    keyPair.publicKey as RSAPublicKey,
+  );
 
   print(encodeCSRToPem(encodedCSR));
-  print(encodeRSAPublicKeyToPem(keyPair.publicKey));
-  print(encodeRSAPrivateKeyToPem(keyPair.privateKey));
+  print(encodeRSAPublicKeyToPem(keyPair.publicKey as RSAPublicKey));
+  print(encodeRSAPrivateKeyToPem(keyPair.privateKey as RSAPrivateKey));
 }
