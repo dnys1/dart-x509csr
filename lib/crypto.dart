@@ -81,9 +81,9 @@ List<String> _chunked(String encoded, {int chunkSize = 64}) {
 String encodeCSRToPem(ASN1Object csr) {
   final chunks = _chunked(base64.encode(csr.encodedBytes));
 
-  return '-----BEGIN CERTIFICATE REQUEST-----\r\n' +
-      chunks.join('\r\n') +
-      '\r\n-----END CERTIFICATE REQUEST-----\r\n';
+  return '-----BEGIN CERTIFICATE REQUEST-----\n' +
+      chunks.join('\n') +
+      '\n-----END CERTIFICATE REQUEST-----\n';
 }
 
 // from https://gist.github.com/proteye/982d9991922276ccfb011dfc55443d74
@@ -107,7 +107,7 @@ String encodeRSAPublicKeyToPem(RSAPublicKey publicKey) {
   final dataBase64 = base64.encode(topLevelSeq.encodedBytes);
   final chunks = _chunked(dataBase64);
 
-  return '''-----BEGIN PUBLIC KEY-----\r\n${chunks.join('\r\n')}\r\n-----END PUBLIC KEY-----\r\n''';
+  return '''-----BEGIN PUBLIC KEY-----\n${chunks.join('\n')}\n-----END PUBLIC KEY-----\n''';
 }
 
 String encodeRSAPrivateKeyToPem(RSAPrivateKey privateKey) {
@@ -153,5 +153,5 @@ String encodeRSAPrivateKeyToPem(RSAPrivateKey privateKey) {
 
   final chunks = _chunked(dataBase64);
 
-  return '''-----BEGIN PRIVATE KEY-----\r\n${chunks.join('\r\n')}\r\n-----END PRIVATE KEY-----\r\n''';
+  return '''-----BEGIN PRIVATE KEY-----\n${chunks.join('\n')}\n-----END PRIVATE KEY-----\n''';
 }
